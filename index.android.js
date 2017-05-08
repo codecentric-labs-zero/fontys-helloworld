@@ -9,24 +9,40 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  ScrollView
 } from 'react-native';
+
+import { Card, Toolbar, ThemeProvider } from 'react-native-material-ui';
+
+const MyCard = (props) => (<Card>
+            <View style={{padding: 30}}>
+              <Text style={styles.instructions}>
+                {props.text}
+              </Text>
+            </View>
+          </Card>)
 
 export default class helloworld extends Component {
   render() {
+    let sessions = ['10:00 - Welcome',
+      '10:20 - Greeting',
+      '10:40 - First set of presentations',
+      '11:30 - Presentation "Mongo DB"',
+      '12:00 - Lunch',
+      '13:00 - Native App Development with React Native',
+      '13:30 - Tour of the building',
+      '14:30 - Closing'];
+
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
+      <ThemeProvider>
+        <ScrollView>
+          <View style={styles.container}>
+            <Toolbar centerElement={<Text style={styles.welcome}>Welcome to codecentric!</Text>} />
+            {sessions.map((session, i) => <MyCard key={i} text={session}/>)}
+          </View>
+        </ScrollView>
+      </ThemeProvider>
     );
   }
 }
@@ -34,8 +50,8 @@ export default class helloworld extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
     backgroundColor: '#F5FCFF',
   },
   welcome: {
